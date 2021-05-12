@@ -1,7 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import React, { useState, useEffect } from "react";
+import { getTodo } from "./api";
 
 function App() {
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    const fetchItems = async () => {
+      const todos = await getTodo("609a87dd8e2f5715a9bd262e");
+      setItems(todos);
+    };
+    fetchItems();
+  }, []);
   return (
     <div className="App">
       <header className="App-header">
@@ -17,6 +28,7 @@ function App() {
         >
           Learn React
         </a>
+        <p>{items.text}</p>
       </header>
     </div>
   );
